@@ -1,79 +1,82 @@
 #include <iostream>
 /**
-  * @brief: arrays declaration
+  * @brief: Declaring and using pointers in C++
+  *                           address     Var name      value
+  *                           1000
+  * int *p_var1-->1004        1004        var1          22
+  *                           1008
+  *                           1012
+  * points on the address of a variables address in memory
+  * 
   **/
 
 int main(){
+  //Declaration of pointers
+  int * p_number {};  // can only store address of a variable of type int
+  double * p_fractional_number {};  // can only store an address of a variable of type double
+
+  //Explicitely initialize to nullptr
+  int * p_number1{nullptr};   // pointing anywhere, Dont use pointers that contain nullpointers
+  int * p_fractional_number1{nullptr};
+
+  // all the addresses have the same size --> all the pointer variables have the same size
+  std::cout << "Size of Number pointer : " << sizeof(p_number) 
+      << ", size of int : " << sizeof(int) << std::endl;
+
+  std::cout << "Size of fractional_number pointer : " << sizeof(p_fractional_number) 
+      << ", size of double : " << sizeof(double) << std::endl;
+
+  std::cout << "Size of Number1 pointer : " << sizeof(p_number1) 
+      << ", size of int : " << sizeof(int) << std::endl;
+
+  std::cout << "Size of fractional_number1 pointer : " << sizeof(p_fractional_number1) 
+      << ", size of double : " << sizeof(double) << std::endl; 
   
-  // declaring an array
-  int scores[10];
-  // reading values
-  std::cout << std::endl;
-  std::cout << "Reading out score values (manually) : " << std::endl;
-  std::cout << "scores[0] : " << scores[0] << std::endl;
-  std::cout << "scores[1] : " << scores[1] << std::endl;
-  //...
-  std::cout << "scores[9] : " << scores[9] << std::endl;
-  // array has clear boundaries from 0-9, outside has garbage or failure, we dont know what data memory we want to access
-  // writing data to an array
-  scores[0] = 20;
-  scores[1] = 21;
-  scores[2] = 22;
-  //writing out of bounds BAD
-  scores[22] = 300;
+  //position of * doesn't matter
+  int*  p_number2 {nullptr};
+  int * p_number3 {nullptr};
+  int  *p_number4 {nullptr}; // all workt, int *p_number format is easier to understand for multiple variables declared on the same line
 
-  std::cout << std::endl;
-  std::cout << "Manually writing data in array : " << std::endl;
-  for ( size_t i{0} ; i < 10 ; ++i){
-    std::cout << "scores[" << i << "] : " << scores[i] << std::endl; 
-  }
+  int *p_number5{}, other_int_var{};  // pointer, regular int
+  int* p_number6{}, other_int_var6{}; // confusing as you wonder if other_int_var6 is also a pointer to int. It is not. Same as previous
+  std::cout << "sizeof(p_number5) : " << sizeof(p_number5) << std::endl;
+  std::cout << "sizeof(other_int_var) : " << sizeof(other_int_var) << std::endl;
+  std::cout << "sizeof(p_number6) : " << sizeof(p_number6) << std::endl;
+  std::cout << "sizeof(other_int_var6) : " << sizeof(other_int_var6) << std::endl;
+  // It is better to separate these declarations on different lines
+  int *p_number7{};
+  int other_int_var7{}; // No room for confusion
 
+  // assigning data to pointer variables
 
-  std::cout << std::endl;
-  std::cout << "Writing data in array with loop : " << std::endl;
+  //we know that pointers store addresses of variables
+  int int_var {43};
+  int *p_int{&int_var}; // the address of operator &
 
-  // write data
-  for ( size_t i{0} ; i < 10 ; ++i){
-    scores[i] = i *3;
-  }
+  std::cout << "Int var : " << int_var << std::endl;
+  std::cout << "p_int (address in memory) : " << p_int << std::endl;
 
-  // read out the data 
-  for ( size_t i{0} ; i < 10 ; ++i){
-    std::cout << "scores2[" << i << "] : " << scores[i] << std::endl; 
-  }
+  // you can also change the address stored in a pointer any time
+  int int_var1 {65};
 
-  // initialize the array at declaration
-  std::cout << std::endl;
-  std::cout << "Declare and initialize at the same time : " << std::endl;
+  int_var1 = 126;
 
-  double salaries[5] {12.7, 7.5, 13.2, 8.1, 9.3};
+  p_int = &int_var1;
+  std::cout << "p_int (with different address) : " << p_int << std::endl;
 
-  // read out the data 
-  for ( size_t i{0} ; i < 5 ; ++i){
-    std::cout << "salary[" << i << "] : " << salaries[i] << std::endl; 
-  }
+  // Pointer only stores the type for which it was declared
+  int *p_int1{nullptr};
+  double double_var{33};
 
-  std::cout << "size of an int array : " << sizeof(scores) << std::endl;
-  std::cout << "size of a double array : " << sizeof(salaries) << std::endl;
+  // p_int1 = &double_var1; // compile error, we cant store an address of double to int pointer
 
-  // omitting the size of an array at declaration
-  int class_sizes[] {10, 12, 15, 11, 18, 17, 22};
+  //Dereferencing a pointer : 
+  int *p_int2 {nullptr};
+  int int_data {56};
+  p_int2 = &int_data;
+  std::cout << "value : " << *p_int2 << std::endl;
 
-  for (auto value : class_sizes){ // range based for loop
-    std::cout << "value : " << value << std::endl;
-  }
-
-  // constant arrays, can't be modified
-  //const int multipliers [] { 22, 30, 15};
- // multipliers[1] = 20;
-
-  //sum up scores array, store result in sum
-  int sum {0};
-
-  for ( int element : class_sizes){
-    sum += element;
-  }
-  std::cout << "Score sum : " << sum << std::endl;
+  
 
   return 0;
 }

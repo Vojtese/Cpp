@@ -41,7 +41,7 @@ int main(){
   //pointers initialized with dynamic arrays are different form arrays : 
   // std::size doesn't work on them, and they don't support range based for loops
 
-  double *temperatures = new double[size] {10.0,20.0,30.0,40.0,50.0,60.0,70.0,80.0,90.0,100.0};
+  double *temperatures = new double[size] {10.0,20.0,30.0,40.0,50.0,60.0,70.0,80.0,90.0,100.0}; // lives on the heap
 
   //std::cout << "std::size(temperatures) : " << std::size(temperatures) << std::endl;  //Error
 

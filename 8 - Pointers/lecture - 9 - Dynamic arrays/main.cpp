@@ -6,7 +6,7 @@
 
 int main(){
   //Array dynamic allocation
-  size_t size{10};
+  const size_t size{10};
 
   //Different ways you can declare an array
   //dynamically and how they are initialized

@@ -1,8 +1,4 @@
-# References and const
-* *const* key word with references
-* setup an **alias** : **var_ref** = **p_var** (between address and value)
-  
-|type|name|address|value|
-|:---|:---:|:---:|---:|
-|int|var|0x12ab|33|
-|const|var_ref|p_var|p_var|
+# Introducing std::string : Declare and use std::string
+#include <string>
+x 'H' 'e' 'l' 'l' 'o' '\0' x
+- Concatenation, search, copy ...

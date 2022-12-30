@@ -1,56 +1,42 @@
 #include <iostream>
+#include <string>
 /**
-  * @brief: const reference
-  * 
+  * @brief: Introducing std::string
+  * Declare and use std::string
   **/
 
 int main(){
   
-  // Non const reference
+  std::string full_name;//Empty string
+  std::string planet {"Earth. Where the sky is blue"};//Initialize with string literal
+	std::string prefered_planet{planet};//Initialize with other existing string
+  std::string message {"Hello there",5};	//Initialize with part of a string literal.
+                    //Contains hello
+  std::string weird_message(4,'e');//Initialize with multiple copies of a char
+                  // contains eeee
+  std::string greeting{"Hello World"};
+  std::string saying_hello{ greeting,6,5};//Initialize with part of an existing std::string
+                    // starting at index 6, taking 5 characters.
+                    //Will contain World.
+	
+	std::cout << "full_name : " << full_name << std::endl;
+	std::cout << "planet : " << planet << std::endl;
+	std::cout << "prefered_planet : " << prefered_planet << std::endl;
+	std::cout << "message : " << message << std::endl;
+	std::cout << "weird_message : " << weird_message << std::endl;
+	std::cout << "greeting : " << greeting << std::endl;
+	std::cout << "saying_hello : " << saying_hello << std::endl;
 
-  std::cout << std::endl;
-  std::cout << "Non const reference : " << std::endl;
-  int age {27};
-  int &ref_age{age};
+  //Changing std::string at runtime, the old memory space is returned to the system and reasigned new part of memory for such string
+  planet = "Earth. Where the sky is blue Earth. Where the sky is blue Earth. Where ";
+  std::cout << "planet : " << planet << std::endl;
 
-  std::cout << "age : " << age << std::endl;
-  std::cout << "ref_age : " << ref_age << std::endl;
 
-  // Can modify original value through reference
-
-  std::cout << std::endl;
-  std::cout << "Modify original variable through reference : " << std::endl;
-
-  ref_age++;  //modify through reference
+  //Use a raw array - we write to another memory wasted : after where the sky...
+  const char * planet1 {"Earth. Where the sky is blue Earth."};
+  planet1 = "Earth. Where the sky is blue Earth. Where the sky is blue Earth. Where ";
+  std::cout << "planet1 : " << planet1 << std::endl;
   
-  std::cout << "age : " << age << std::endl;
-  std::cout << "ref_age : " << ref_age << std::endl;
-
-  //Const reference
-  // const applies to reference variable name. Not to original variable
-  std::cout << std::endl;
-  std::cout << "Const reference : " << std::endl;
-
-  age = 30;
-  const int &const_ref_age{age};
-
-  std::cout << "age : " << age << std::endl;
-  std::cout << "const_ref_age : " << const_ref_age << std::endl;
-
-  //try to modify through const reference
-  //const_ref_age = 31; //Error
-
-  //Duplicate const reference behaviour with pointers
-  //can achieve the same thing as const ref with pointer : const pointer to const data
-  //remember that a reference by default is like a const pointer. all we need
-  //to do is make the pointer point to const data
-
-  const int *const const_ptr_to_const_age {&age};
-
-  //*const_ptr_to_const_age = 32; // error
-
-  //No such thing
-  //const int &const weird_ref_age{age};  //error
 
 
   return 0;

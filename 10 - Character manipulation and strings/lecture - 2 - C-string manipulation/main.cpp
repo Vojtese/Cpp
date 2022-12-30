@@ -1,90 +1,108 @@
 #include <iostream>
+#include <cstring>
 /**
-  * @brief: difference between pointers and references
+  * @brief: C-string manipulation
+  * https://en.cppreference.com/w/cpp/header/cstring
   * 
   **/
 
 int main(){
   
-  //Declaration and reading
-  double double_val {12.34};
+  //std::strlen : Find the length of a string
+  /*const char message1 [ ] {"The sky is blue."};
 
-  double &ref_double_val {double_val};  //Reference to double_val
-  double *p_double_val {&double_val};   //Pointer to double_val
+  // Array decays into pointer when we use const char*
+  const char *message2 {"The sky is blue."};
+  std::cout << "message1 : " << message1 << std::endl;
 
-  //Reading
-  std::cout << "double_val : " << double_val << std::endl;
-  std::cout << "ref_double_val : " << ref_double_val << std::endl;  // dont need to go through dereferencing and *
-  std::cout << "p_double_val : " << p_double_val << std::endl;
-  std::cout << "*p_double_val : " << *p_double_val << std::endl;  // dereferencing
+  //strlen ignores null character
+  std::cout << "strlen(message1) : " << std::strlen(message1) << std::endl;
 
-  // Writing
+  //Includes null character
+  std::cout << "sizeof(message1) : " << sizeof(message1) << std::endl;
+
+  //strlen works with decayed character
+  std::cout << "strlen(message2) : " << std::strlen(message2) << std::endl;
+
+  //Prints sizeof pointer
+  std::cout << "sizeof(message2) : " << sizeof(message2) << std::endl;
+*/
+  //std::strcmp - signature : int strcmp ( const char *lhs, const char *rhs);
+  //Returns negative value if lhs appears before rhs in lexicographical order,
+  //Zero if lhs and rhs compare equal.
+  //and positive value if lhs appears after rhs in lexicographical order.
+  /*std::cout << std::endl;
+  std::cout << "std::strcmp : " <<std::endl;
+  const char *string_data1 {"Alabama"};
+  const char *string_data2 {"Blabama"};
+
+  //Print out the comparison
+  std::cout << "std::strcmp (" << string_data1 << "," << string_data2 << ") : " 
+            << std::strcmp(string_data1, string_data2) << std::endl;
+  
+  string_data1 = "Alabama";
+  string_data2 = "Alabamb";
+
+  // Print out the comparison
+  std::cout << "std::strcmp (" << string_data1 << "," << string_data2 << ") : " 
+            << std::strcmp(string_data1, string_data2) << std::endl;
+  
+  string_data1 = "Alacama";
+  string_data2 = "Alabama";
+  // Print out the comparison
+  std::cout << "std::strcmp (" << string_data1 << "," << string_data2 << ") : " 
+            << std::strcmp(string_data1, string_data2) << std::endl;
+
+  //std::strncmp - signature : int strcmp ( const char *lhs, const char *rhs, std::size_t count);
+  // Compares n characters in the strings
+  //Returns : negative value if lhs appears before rhs in lexicographical order,
+  //Zero if lhs and rhs compare equal, or if count is zero.
+  //and positive value if lhs appears after rhs in lexicographical order.
+  //Print out the comparison
+  size_t n{3};
   std::cout << std::endl;
-  std::cout << "Writing through pointer : " << std::endl;
+  std::cout << "std::strncmp : " << std::endl;
+  std::cout << "std::strncmp (" << string_data1 << "," << string_data2 << "," << n << ") : "
+            << std::strncmp(string_data1, string_data2, n) << std::endl;
 
-  *p_double_val = 15.44;
+  string_data1 = "aaaia";
+  string_data2 = "aaance";
+  // Print out the comparison
+  std::cout << "std::strncmp (" << string_data1 << "," << string_data2 << "," << n << ") : "
+            << std::strncmp(string_data1, string_data2, n) << std::endl;     
+  */
+  //str::strchr : find first occurance
   std::cout << std::endl;
-  std::cout << "double_val : " << double_val << std::endl;
-  std::cout << "ref_double_val : " << ref_double_val << std::endl;  // dont need to go through dereferencing and *
-  std::cout << "p_double_val : " << p_double_val << std::endl;
-  std::cout << "*p_double_val : " << *p_double_val << std::endl;
+  std::cout << "std::strchr : " << std::endl;
+  //doc : https://en.cpprefeerence.com/w/cpp/string/byte/strchr
 
-  // Writing through refeence
+  //we use std::strchr to find all the characters one by one
 
-  ref_double_val = 18.44;
+  const char *str { "Try not. Do, or do not. There is no try."};
+  char target = 'T';
+  const char *result = str;
+  int iterations{};
+
+  while ((result = std::strchr(result, target)) != nullptr) {
+    std::cout << "Found : '" << target 
+              << "' starting at '" <<result << "'\n";
+
+    // Increment result, otherwise we'll find target at same location
+    ++result;
+    ++iterations;
+  }
+  std::cout << "iterations : " << iterations << std::endl;
+
+  //std::strrchr : find last occurance
+
   std::cout << std::endl;
-  std::cout << "double_val : " << double_val << std::endl;
-  std::cout << "ref_double_val : " << ref_double_val << std::endl;  // dont need to go through dereferencing and *
-  std::cout << "p_double_val : " << p_double_val << std::endl;
-  std::cout << "*p_double_val : " << *p_double_val << std::endl;
+  std::cout << "std::strrchr : " << std::endl;
+  //doc : https://en.cpprefeerence.com/w/cpp/string/byte/strrchr
 
-  // Can't make a reference refer to something else
-  double other_double_val {100.23};
-
-  //This works, but it doesn't make ref_double_val reference other_double_val
-  //it merely changes the value referenced by ref_double_val to 100.23
-  //visualize this in slides
-  ref_double_val = other_double_val;
-
-  // If change ref_double_val now, other_double_val stays the same
-  // proving that ref_double-val is not referencing other_double_val;
-  ref_double_val = 333.33; 
-  std::cout << std::endl;
-  std::cout << "double_val : " << double_val << std::endl;
-  std::cout << "ref_double_val : " << ref_double_val << std::endl;  // dont need to go through dereferencing and *
-  std::cout << "p_double_val : " << p_double_val << std::endl;
-  std::cout << "*p_double_val : " << *p_double_val << std::endl;
-  std::cout << "other_double-val : "<< other_double_val << std::endl;
-
-  // A pointer can point somewhere else
-  std::cout << std::endl;
-  std::cout << "A pointer can point somewhere else : " << std::endl;
-
-  p_double_val = &other_double_val;
-  std::cout << std::endl;
-  std::cout << "double_val : " << double_val << std::endl;
-  std::cout << "ref_double_val : " << ref_double_val << std::endl;  // dont need to go through dereferencing and *
-  std::cout << "p_double_val : " << p_double_val << std::endl;
-  std::cout << "*p_double_val : " << *p_double_val << std::endl;
-  std::cout << "other_double-val : "<< other_double_val << std::endl;
-
-  *p_double_val = 555.66;
-  std::cout << std::endl;
-  std::cout << "double_val : " << double_val << std::endl;
-  std::cout << "ref_double_val : " << ref_double_val << std::endl;  // dont need to go through dereferencing and *
-  std::cout << "p_double_val : " << p_double_val << std::endl;
-  std::cout << "*p_double_val : " << *p_double_val << std::endl;
-  std::cout << "other_double-val : "<< other_double_val << std::endl;
-
-  // References are somewhat like const pointers
-  //References behave like constant pointers, but they have
-  // a much friendlier syntax as they don't require dereferencing
-  // to read and write through referenced data
-
-  double *const const_p_double_val {&double_val};
-
-  //const_p_double_val = &other_double_val;   //error
-
-
+  char input [] = "/home/user/hello.cpp";
+  char *output = std::strrchr(input, '/');
+  if (output)
+    std::cout << output+1 << std::endl;   //+1 because we want to start printing past
+                                          // the character found by std::strrchr.
   return 0;
 }
